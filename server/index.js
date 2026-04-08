@@ -16,6 +16,15 @@ app.post('/api/auth/login', (req, res) => {
   res.json({ message: 'Código enviado por SMS!', phone });
 });
 
+app.post('/api/auth/register', (req, res) => {
+  const { nome_completo, numero_telemovel, numero_bi, data_nascimento, tipo } = req.body;
+  if (!nome_completo || !numero_telemovel || !numero_bi || !data_nascimento || !tipo) {
+    return res.status(400).json({ message: 'Preencha todos os campos' });
+  }
+  console.log('Registo:', nome_completo, numero_telemovel, tipo);
+  res.json({ message: 'Conta criada com sucesso!', phone: numero_telemovel });
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log('DomesticaMoz API running on port ' + PORT);
